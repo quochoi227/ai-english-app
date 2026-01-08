@@ -8,7 +8,7 @@ export async function POST() {
   try {
     // const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
-    const prompt = `Bạn là một giáo viên tiếng Anh chuyên nghiệp. Hãy tạo một đoạn văn tiếng Việt để người học dịch sang tiếng Anh.
+    const prompt = `Bạn là một giáo viên tiếng Anh chuyên nghiệp. Hãy tạo một đoạn văn "tiếng Việt" để người học dịch sang "tiếng Anh".
 
 Yêu cầu:
 1. Đoạn văn có từ 7 đến 10 câu

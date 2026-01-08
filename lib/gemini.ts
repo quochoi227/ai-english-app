@@ -9,5 +9,5 @@ if (!apiKey) {
 export const genAI = new GoogleGenerativeAI(apiKey || "dummy_key");
 
 export const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
+  model: "gemma-3-4b-it",
 });
