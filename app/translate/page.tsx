@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Header from "../components/Header";
 import LoadingSpinner from "../components/LoadingSpinner";
 import {
   Languages,
@@ -104,10 +103,7 @@ export default function TranslatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-
-      <main className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <main className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Page Header */}
           <div className="text-center mb-10 animate-fade-in">
@@ -241,7 +237,7 @@ export default function TranslatePage() {
               </div>
 
               {/* Main Translation */}
-              <div className="p-4 rounded-lg bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 mb-4">
+              <div className="p-4 rounded-lg bg-linear-to-r from-primary/5 to-secondary/5 border border-primary/20 mb-4">
                 <p className="text-lg text-foreground font-medium leading-relaxed">
                   {result.translation}
                 </p>
@@ -282,6 +278,5 @@ export default function TranslatePage() {
           )}
         </div>
       </main>
-    </div>
   );
 }

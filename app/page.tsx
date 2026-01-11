@@ -1,8 +1,7 @@
 'use client';
 
-import Header from './components/Header';
 import Link from 'next/link';
-import { Languages, PenLine, Sparkles, ArrowRight, BookOpen, Target, Zap } from 'lucide-react';
+import { Languages, PenLine, Sparkles, ArrowRight, BookOpen, Target, Zap, MessageSquare } from 'lucide-react';
 
 const features = [
   {
@@ -20,6 +19,14 @@ const features = [
     href: '/practice',
     color: 'from-secondary to-secondary-light',
     bgColor: 'bg-secondary/5',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Chat với AI',
+    description: 'Trò chuyện trực tiếp với AI để hỏi đáp, học tiếng Anh, hay bất cứ điều gì bạn muốn. Giao diện tương tự ChatGPT.',
+    href: '/chat',
+    color: 'from-primary-light to-secondary',
+    bgColor: 'bg-gradient-to-r from-primary/5 to-secondary/5',
   },
 ];
 
@@ -43,10 +50,7 @@ const benefits = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-
-      {/* Hero Section */}
+    <main>
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto animate-fade-in">
@@ -92,7 +96,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -103,7 +107,7 @@ export default function Home() {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className={`w-14 h-14 rounded-xl ${feature.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    <Icon className={`w-7 h-7 bg-gradient-to-r ${feature.color} bg-clip-text`} style={{ color: 'var(--primary)' }} />
+                    <Icon className={`w-7 h-7 bg-linear-to-r ${feature.color} bg-clip-text`} style={{ color: 'var(--primary)' }} />
                   </div>
 
                   <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
@@ -146,7 +150,7 @@ export default function Home() {
                   className="text-center p-6 animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <div className="w-16 h-16 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <Icon className="w-8 h-8 text-white" />
                   </div>
 
@@ -176,6 +180,6 @@ export default function Home() {
           </p>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }

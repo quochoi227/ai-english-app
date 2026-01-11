@@ -1,6 +1,7 @@
 // import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextRequest, NextResponse } from "next/server";
 import { model } from "@/lib/gemini";
+import { translateResponseSchema, validateResponse } from "@/lib/schemas";
 
 // const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
 
@@ -51,7 +52,18 @@ Chỉ trả về JSON, không thêm markdown hay text khác.`;
       };
     }
 
-    return NextResponse.json(parsedResponse);
+    // Validate response against schema
+    const validatedResponse = validateResponse(
+      translateResponseSchema,
+      parsedResponse,
+      {
+        translation: 'No translation available.',
+        explanation: null,
+        alternatives: [],
+      }
+    );
+
+    return NextResponse.json(validatedResponse);
   } catch (error) {
     console.error("Translation error:", error);
     return NextResponse.json(

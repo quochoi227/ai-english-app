@@ -1,6 +1,7 @@
 // import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextRequest, NextResponse } from "next/server";
 import { model } from "@/lib/gemini";
+import { evaluateResponseSchema, validateResponse } from "@/lib/schemas";
 
 // const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
 
@@ -43,22 +44,30 @@ Chỉ trả về JSON, không thêm markdown hay text khác.`;
 
     // Parse JSON response
     let parsedResponse;
+    const defaultResponse = {
+      score: 5,
+      feedback: "Không thể phân tích kết quả. Vui lòng thử lại.",
+      errors: [],
+      suggestedTranslation: originalSentence,
+      isCorrect: false,
+    };
     try {
       // Remove markdown code blocks if present
       const cleanedText = responseText.replace(/```json\n?|\n?```/g, "").trim();
       parsedResponse = JSON.parse(cleanedText);
     } catch {
       // If parsing fails, create default structure
-      parsedResponse = {
-        score: 5,
-        feedback: "Không thể phân tích kết quả. Vui lòng thử lại.",
-        errors: [],
-        suggestedTranslation: "",
-        isCorrect: false,
-      };
+      parsedResponse = defaultResponse;
     }
 
-    return NextResponse.json(parsedResponse);
+    // Validate response against schema
+    const validatedResponse = validateResponse(
+      evaluateResponseSchema,
+      parsedResponse,
+      defaultResponse
+    );
+
+    return NextResponse.json(validatedResponse);
   } catch (error) {
     console.error("Evaluate error:", error);
     return NextResponse.json(

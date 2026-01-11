@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, Languages, PenLine, Home } from 'lucide-react';
+import { BookOpen, Languages, PenLine, Home, MessageSquare } from 'lucide-react';
 
 const navItems = [
     { href: '/', label: 'Trang chủ', icon: Home },
     { href: '/translate', label: 'Dịch nghĩa', icon: Languages },
     { href: '/practice', label: 'Thực hành', icon: PenLine },
+    { href: '/chat', label: 'Chat AI', icon: MessageSquare },
 ];
 
 export default function Header() {

@@ -1,6 +1,7 @@
 // import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from "next/server";
 import { model } from "@/lib/gemini";
+import { practiceGenerateResponseSchema, validateResponse } from "@/lib/schemas";
 
 // const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
 
@@ -29,27 +30,35 @@ Chỉ trả về JSON, không thêm markdown hay text khác.`;
 
     // Parse JSON response
     let parsedResponse;
+    const defaultResponse = {
+      sentences: [
+        "Hôm nay là một ngày đẹp trời.",
+        "Tôi thức dậy lúc 6 giờ sáng.",
+        "Sau khi tập thể dục, tôi ăn sáng cùng gia đình.",
+        "Công việc hôm nay rất bận rộn.",
+        "Tôi có một cuộc họp quan trọng lúc 10 giờ.",
+        "Buổi trưa, tôi ăn cơm với đồng nghiệp.",
+        "Chiều nay tôi sẽ hoàn thành dự án.",
+      ],
+      topic: "Một ngày làm việc",
+    };
     try {
       // Remove markdown code blocks if present
       const cleanedText = responseText.replace(/```json\n?|\n?```/g, "").trim();
       parsedResponse = JSON.parse(cleanedText);
     } catch {
       // If parsing fails, create default structure
-      parsedResponse = {
-        sentences: [
-          "Hôm nay là một ngày đẹp trời.",
-          "Tôi thức dậy lúc 6 giờ sáng.",
-          "Sau khi tập thể dục, tôi ăn sáng cùng gia đình.",
-          "Công việc hôm nay rất bận rộn.",
-          "Tôi có một cuộc họp quan trọng lúc 10 giờ.",
-          "Buổi trưa, tôi ăn cơm với đồng nghiệp.",
-          "Chiều nay tôi sẽ hoàn thành dự án.",
-        ],
-        topic: "Một ngày làm việc",
-      };
+      parsedResponse = defaultResponse;
     }
 
-    return NextResponse.json(parsedResponse);
+    // Validate response against schema
+    const validatedResponse = validateResponse(
+      practiceGenerateResponseSchema,
+      parsedResponse,
+      defaultResponse
+    );
+
+    return NextResponse.json(validatedResponse);
   } catch (error) {
     console.error("Generate error:", error);
     return NextResponse.json(

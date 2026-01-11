@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Header from "../components/Header";
 import LoadingSpinner from "../components/LoadingSpinner";
 import {
   PenLine,
@@ -162,10 +161,7 @@ export default function PracticePage() {
     sentences.length > 0 && completedCount === sentences.length;
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-
-      <main className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <main className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Page Header */}
           <div className="text-center mb-10 animate-fade-in">
@@ -229,7 +225,7 @@ export default function PracticePage() {
                 {/* Progress Bar */}
                 <div className="mt-4 h-2 bg-border-light rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500"
+                    className="h-full bg-linear-to-r from-primary to-secondary transition-all duration-500"
                     style={{
                       width: `${(completedCount / sentences.length) * 100}%`,
                     }}
@@ -416,8 +412,8 @@ export default function PracticePage() {
 
               {/* Completion Section */}
               {isAllCompleted && (
-                <div className="card p-8 text-center animate-fade-in bg-gradient-to-br from-primary/5 to-secondary/5">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="card p-8 text-center animate-fade-in bg-linear-to-br from-primary/5 to-secondary/5">
+                  <div className="w-16 h-16 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <Trophy className="w-8 h-8 text-white" />
                   </div>
                   <h2 className="text-2xl font-bold text-foreground mb-2">
@@ -453,6 +449,5 @@ export default function PracticePage() {
           )}
         </div>
       </main>
-    </div>
   );
 }
